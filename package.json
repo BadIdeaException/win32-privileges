@@ -2,6 +2,7 @@
   "name": "win32-privileges",
   "version": "1.0.0",
   "description": "Determine user privileges in Windows",
+  "os": ["win32"],
   "dependencies": {
     "koffi": "^2.15"
   },
