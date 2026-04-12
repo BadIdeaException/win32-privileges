@@ -1,0 +1,44 @@
+{
+  "name": "win32-privileges",
+  "version": "1.0.0",
+  "description": "Determine user privileges in Windows",
+  "dependencies": {
+    "koffi": "^2.15"
+  },
+  "devDependencies": {
+    "@tsconfig/node24": "^24.0.4",
+    "@types/chai": "^5.2.3",
+    "@types/node": "^24.12",
+    "chai": "^6.2.2",
+    "mocha": "^11.7.5",
+    "rimraf": "^6.1.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "windows",
+    "win32",
+    "privileges",
+    "UAC",
+    "root",
+    "elevated",
+    "admin",
+    "administrator"
+  ],
+  "license": "MIT",
+  "author": "BadIdeaException",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx rimraf dist && npx tsc",
+    "test": "mocha test/**/*.spec.ts",
+    "debug-test": "mocha --inspect-wait=0.0.0.0:9229 test/**/*.spec.ts",
+    "debug-local-test": "mocha inspect test/**/*.spec.ts"
+  },
+  "mocha": {
+    "require": [
+      "tsx"
+    ],
+    "recursive": true
+  }
+}

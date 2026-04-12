@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"folder_exclude_patterns": [".vagrant", "node_modules", ".c8"],
+			"binary_file_patterns": ["dist/**"],
+		}
+	],
+	"settings":
+	{
+		"LSP":
+		{
+			"LSP-biome":
+			{
+				"enabled": false
+			}
+		}
+	},
+}

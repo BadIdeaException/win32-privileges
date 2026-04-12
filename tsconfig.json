@@ -1,0 +1,12 @@
+{
+	"extends": "@tsconfig/node24/tsconfig.json",
+
+	"include": ["src/**/*"],
+
+	"compilerOptions": {
+		"outDir": "dist",
+		"sourceMap": true
+	},
+
+	"plugins": [{ "name": "typescript-eslint-language-service" }]
+}
