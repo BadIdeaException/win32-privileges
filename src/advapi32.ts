@@ -199,7 +199,7 @@ export function lookupPrivilegeNameW(luid: LUID): PrivilegeName {
 		size--;
 	}
 
-	return lpName.toString('utf16le').slice(0, size);
+	return lpName.toString('utf16le').slice(0, size) as PrivilegeName;
 }
 
 export { STANDARD_RIGHTS_REQUIRED, STANDARD_RIGHTS_READ, STANDARD_RIGHTS_WRITE, STANDARD_RIGHTS_EXECUTE } from './bindings.js';
