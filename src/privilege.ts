@@ -52,21 +52,21 @@ export default class Privilege {
 	/**
 	 * Whether this privilege is enabled.
 	 */
-	isEnabled() {
-		return this.status & SE_PRIVILEGE_ENABLED;
+	isEnabled(): boolean {
+		return Boolean(this.status & SE_PRIVILEGE_ENABLED);
 	}
 
 	/**
 	 * Whether this privilege is normally enabled by default.
 	 */
-	isEnabledByDefault() {
-		return this.status & SE_PRIVILEGE_ENABLED_BY_DEFAULT;
+	isEnabledByDefault(): boolean {
+		return Boolean(this.status & SE_PRIVILEGE_ENABLED_BY_DEFAULT);
 	}
 
 	/**
 	 * Whether this privilege has been used to gain access to an object.
 	 */
-	wasUsedForAccess() {
-		return this.status & SE_PRIVILEGE_USED_FOR_ACCESS;
+	wasUsedForAccess(): boolean {
+		return Boolean(this.status & SE_PRIVILEGE_USED_FOR_ACCESS);
 	}
 }

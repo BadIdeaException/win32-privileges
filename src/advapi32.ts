@@ -164,7 +164,7 @@ export function getTokenInformation(tokenHandle: TokenHandle, tokenInformationCl
 /**
  * See https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-lookupprivilegenamew
  */
-export function lookupPrivilegeNameW(luid: LUID): string {
+export function lookupPrivilegeNameW(luid: LUID): PrivilegeName {
 	// Rather than do a double call each and every time, try optimistically with a 32 char buffer and only
 	// grow when necessary
 	const initialSize = 32;
