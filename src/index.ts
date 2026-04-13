@@ -1,13 +1,13 @@
 import * as kernel32 from './kernel32.js';
 import * as advapi32 from './advapi32.js';
-import Privilege from './privilege.js';
+import Privilege, { type PrivilegeName } from './privilege.js';
 
 /**
  * Queries the kernel for the privileges assigned to the current process. 
  * @returns An array of `Privilege` objects
  * @throws When called from an OS other than Windows 
  */
-export default function getPrivileges(): Privilege[] {
+export function getPrivileges(): Privilege[] {
 	if (process?.platform !== 'win32') 
 		throw new Error(`getPrivileges can only be called from Windows`);
 
@@ -20,4 +20,16 @@ export default function getPrivileges(): Privilege[] {
 	} finally {
 		kernel32.closeHandle(tokenHandle);
 	}
+}
+
+export function hasPrivilege(privilege: PrivilegeName): boolean {
+	return getPrivileges().some(priv => priv.name === privilege);
+}
+
+export function getEnabledPrivileges(): Privilege[] {
+	return getPrivileges().filter(priv => priv.isEnabled());
+}
+
+export function hasEnabledPrivilege(privilege: PrivilegeName): boolean {
+	return getEnabledPrivileges().some(priv => priv.name === privilege);
 }
