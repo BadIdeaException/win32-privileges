@@ -49,39 +49,110 @@ for (const privilege of privileges) {
 
 ### `getPrivileges(): Privilege[]`
 
-Returns a list of privileges associated with the current process.
+Retrieves all privileges associated with the current process token, 
+regardless of whether they are enabled or not. A privilege that is present
+but disabled is potentially available to this process, i.e. within the scope
+of permitted operations for the user owning the process. Only enabled privileges,
+however, actually entitle the process to carry out the associated operations.
 
-### `Privilege` Class
+For example, a process may have the `SE_SHUTDOWN_PRIVILEGE` privilege present. This means
+that it can potentially shut down the system, but it cannot do so currently (because the
+privilege is disabled).
+To actually shut down the system, the process requires an enabled `SE_SHUTDOWN_PRIVILEGE`. 
+If the privilege is not present at all, the process can never shut down the system.
 
-Represents a single Windows privilege.
+Use [`getEnabledPrivileges`](#getenabledprivileges-privilege) if you want to get a list of enabled privileges.
 
-```ts
-class Privilege {
-  name: string;
-  status: number;
+*Returns* {[`Privilege[]`](#privilege-class)} An array of `Privilege` objects representing
+all privileges assigned to the current process.
 
-  isEnabled(): boolean;
-  isEnabledByDefault(): boolean;
-  wasUsedForAccess(): boolean;
-}
-```
+*Throws* `Error` If called on platform other than Windows.
+
+### `hasPrivilege(privilege: string): boolean`
+
+Checks whether the current process has a specific privilege assigned,
+regardless of whether the privilege is enabled or not.
+
+See [`getPrivileges`](#getprivileges-privilege) for details on present vs enabled privileges.
+ 
+Use [`hasEnabledPrivilege`]() instead if you want to check for enabled privileges.
+
+*Parameters*
+
+* `string` privilege - The name of the privilege to check.
+ 
+*Returns*  `boolean` `true` if the privilege exists in the process token; otherwise `false`.
+
+*Throws* `Error` If called on platform other than Windows.
+ 
+### `getEnabledPrivileges(): Privilege[]`
+
+Retrieves all enabled privileges associated with the current process token.
+These privileges are active, i.e. entitle the process to carry out the associated
+operations.
+
+See [`getPrivileges`](#getprivileges-privilege) for details on present vs enabled privileges.
+
+*Returns* `Privilege[]` An array of enabled `Privilege` objects. 
+
+*Throws* `Error` If called on platform other than Windows.
+
+### `hasEnabledPrivilege(privilege: string): boolean`
+
+Checks whether a specific privilege is present and enabled for the current process.
+
+See [`getPrivileges`](#getprivileges-privilege) for details on present vs enabled privileges.
+ 
+*Parameters*
+
+* `string` privilege - The name of the privilege to check.
+ 
+*Returns*  `boolean` `true` if the privilege exists in the process token and is enabled; otherwise `false`.
+
+*Throws* `Error` If called on platform other than Windows.
+
+### Class `Privilege` 
+
+Represents a single privilege. 
+
+A privilege is the right of a user to perform various system-related operations, such as shutting down the system, loading device drivers, or changing the system time. 
+A user's access token contains a list of the privileges held by either the user or the user's groups. These privileges are inherited by processes owned by the user.
+
+A `Privilege` consists of the privilege's name, and its activation status.
+
+This class exposes all [privilege names](https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants) as static properties (e.g. `Privilege.SE_CREATE_TOKEN_NAME`).
+
+#### Properties
+
+* `string` name The name of this privilege. This is the value of one of the privilege name constants.
 
 #### Methods
 
-##### `isEnabled()`
+###### `isEnabled(): boolean`
 
-Returns `true` if the privilege is currently enabled.
+Whether this privilege is currently enabled.
 
-##### `isEnabledByDefault()`
+Only enabled privileges entitle the process to carry out the associated operations.
 
-Returns `true` if the privilege is enabled by default in the token.
+*Returns* `boolean` `true` is this privilege is enabled, `false` otherwise.
 
-##### `wasUsedForAccess()`
+##### `isEnabledByDefault(): boolean`
 
-Returns `true` if the privilege was used during an access check.
+Whether this privilege is enabled by default when the token is created.
+
+A privilege that is enabled by default may still be disabled later.
+
+*Returns* `boolean` `true` if this privilege is enabled by default, `false` otherwise.
+
+##### `wasUsedforAccess(): boolean`
+
+Whether this privilege has actually been used. 
+(Specifically, whether it has contributed to at least one successful access check.)
+
+*Returns*  `boolean` `true` if this privilege has been used by the process, `false` otherwise.
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 This library directly interfaces with the Windows API using a bridging mechanism called [Foreign Function Interfaces (FFI)](https://en.wikipedia.org/wiki/Foreign_function_interface). Specifically, it uses [`koffi`](koffi.dev), which comes pre-built for many platforms including Windows, so as to avoid a build step on install.
