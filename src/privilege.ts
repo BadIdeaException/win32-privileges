@@ -15,7 +15,7 @@ export { type PrivilegeName } from './advapi32.js';
  */
 export default class Privilege {
 	name: string;
-	status: number;
+	private _status: number;
 
 	static SE_CREATE_TOKEN_NAME: PrivilegeName = SE_CREATE_TOKEN_NAME;
 	static SE_ASSIGNPRIMARYTOKEN_NAME: PrivilegeName = SE_ASSIGNPRIMARYTOKEN_NAME;
@@ -56,7 +56,7 @@ export default class Privilege {
 
 	constructor(name: PrivilegeName, status: number) {
 		this.name = name;
-		this.status = status;
+		this._status = status;
 	}
 
 	/**
@@ -65,7 +65,7 @@ export default class Privilege {
 	 * Only enabled privileges entitle the process to carry out the associated operations.
 	 */
 	isEnabled(): boolean {
-		return Boolean(this.status & SE_PRIVILEGE_ENABLED);
+		return Boolean(this._status & SE_PRIVILEGE_ENABLED);
 	}
 
 	/**
@@ -74,7 +74,7 @@ export default class Privilege {
 	 * A privilege that is enabled by default may still be disabled later.
 	 */
 	isEnabledByDefault(): boolean {
-		return Boolean(this.status & SE_PRIVILEGE_ENABLED_BY_DEFAULT);
+		return Boolean(this._status & SE_PRIVILEGE_ENABLED_BY_DEFAULT);
 	}
 
 	/**
@@ -83,6 +83,6 @@ export default class Privilege {
 	 * successful access check.)
 	 */
 	wasUsedForAccess(): boolean {
-		return Boolean(this.status & SE_PRIVILEGE_USED_FOR_ACCESS);
+		return Boolean(this._status & SE_PRIVILEGE_USED_FOR_ACCESS);
 	}
 }
