@@ -63,7 +63,7 @@ If the privilege is not present at all, the process can never shut down the syst
 
 Use [`getEnabledPrivileges`](#getenabledprivileges-privilege) if you want to get a list of enabled privileges.
 
-*Returns* {[`Privilege[]`](#privilege-class)} An array of `Privilege` objects representing
+*Returns* {[`Privilege[]`](#class-privilege)} An array of `Privilege` objects representing
 all privileges assigned to the current process.
 
 *Throws* `Error` If called on platform other than Windows.
