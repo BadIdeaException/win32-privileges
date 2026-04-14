@@ -6,6 +6,7 @@
   "dependencies": {
     "koffi": "^2.15"
   },
+  "files": [ "dist" ],
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
     "@types/chai": "^5.2.3",
