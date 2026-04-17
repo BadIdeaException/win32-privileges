@@ -30,7 +30,7 @@
   "license": "MIT",
   "author": "BadIdeaException",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "npx rimraf dist && npx tsc",
     "test": "mocha test/**/*.spec.ts",
