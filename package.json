@@ -1,6 +1,6 @@
 {
   "name": "win32-privileges",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Determine user privileges in Windows",
   "license": "MIT",
   "author": "BadIdeaException",
