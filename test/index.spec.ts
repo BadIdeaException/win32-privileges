@@ -1,7 +1,7 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
 import { execSync } from 'node:child_process';
-import getPrivileges from '../src/index.ts';
+import { getPrivileges } from '../src/index.ts';
 
 describe('getPrivileges', function() {
 	let expected;
