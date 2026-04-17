@@ -1,6 +1,8 @@
 import * as kernel32 from './kernel32.js';
 import * as advapi32 from './advapi32.js';
 import Privilege, { type PrivilegeName } from './privilege.js';
+export { Privilege };
+
 
 /**
  * Retrieves all privileges associated with the current process token, 
