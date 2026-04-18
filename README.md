@@ -34,7 +34,7 @@ npm install --save-optional win32-privileges
 ## Usage
 
 ```ts
-import getPrivileges from 'win32-privileges';
+import { getPrivileges } from 'win32-privileges';
 
 const privileges = getPrivileges();
 
