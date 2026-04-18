@@ -120,7 +120,7 @@ A user's access token contains a list of the privileges held by either the user 
 
 A `Privilege` consists of the privilege's name, and its activation status.
 
-This class exposes all [privilege names](https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants) as static properties (e.g. `Privilege.SE_CREATE_TOKEN_NAME`).
+This class exposes all [privilege names](https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants) as static properties, while dropping the `_NAME` suffix (so e.g. `Privilege.SE_CREATE_TOKEN`).
 
 #### Properties
 
